@@ -15,6 +15,7 @@ body {
     
 }
 header{   
+    flex-shrink: 0;   
     background-image: url(images/THJJRUhNlEc.png);
     width: 100%;
     background-size: cover;
@@ -93,10 +94,97 @@ main{
     background-color: #FFFFFF;
     position: relative;
     z-index: -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 63px;
 }
 #no-data-initial-img{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%);
+}
+/*Stuff for dynamically rendered cards*/
+
+.movie-card{
+    display: flex;
+    color: #000000;
+    width: 84%;
+    height: 147.41px;
+    column-gap: 1.3125em;
+}
+.movie-poster{
+    height: 100%;
+    width: 99px;
+}
+.movie-title{
+    display: inline;
+    margin-right: 0.44444444444em;
+    width: 24%;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+}
+.star-icon{
+    width: 15px;
+    height: 15px;
+}
+.movie-details{
+    flex: auto;
+    height: 100%;
+}
+.watchlist-btn img{
+    width: 16px;
+    height: 16px;
+}
+
+.extra-info{
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    height: 20px;
+}
+.centered-align{
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+}
+.genre{
+    margin-left: 1.1875em;
+    margin-right: 1.875em;
+}
+.watchlist-btn{
+    color: #111827;
+    background-color: inherit;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    column-gap: 5px;
+    padding: 0;
+}
+.plot {
+    max-width: 342px;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    margin: 0;
+    margin-top: 0.571em;
+    color: #6B7280;
+}
+hr{
+    display: inline-block;
+    width: 84%;
+    border: 1.5px solid #E5E7EB;
+    margin: 1.3125em 0;
+}
+
+
+
+/*Slight tweaks for mobile*/
+@media (max-width:480px) {
+    .plot{
+        font-size: 0.8rem;
+    }
+    
 }
