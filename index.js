@@ -28,16 +28,19 @@ async function fetchMovieDetails(title) {
 
 async function renderCard(movieObject){
     const movieDetails = await fetchMovieDetails(movieObject.Title)
-    console.log(movieDetails)
+    let posOfSlash = movieDetails.Ratings[0].Value.indexOf("/")
+    let movieRating = movieDetails.Ratings[0].Value.slice(0,posOfSlash)
     let html = `
     <div class="movie-card">
         <img class="movie-poster" src=${movieObject.Poster}>
         <div class="movie-details">
             <h3 class="movie-title">${movieDetails.Title}</h3>
-            <img class="star-icon" src="/images/starIcon.png">
-            <span>${movieDetails.Ratings[0].Value}</span>
+            <div class="rating-div">
+                <img class="star-icon" src="/images/starIcon.png">
+                <span>${movieRating}</span>
+            </div>
             <div class="centered-align">
-                <span class="extra-info">${movieDetails.Runtime}</span>
+                <span class="runtime extra-info">${movieDetails.Runtime}</span>
                 <span class="extra-info genre">${movieDetails.Genre}</span>
                 <button class="watchlist-btn"><img src="/images/addToWatchlistIcon.png"><span class="extra-info">Watchlist</span></button>
             </div>

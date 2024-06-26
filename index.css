@@ -182,9 +182,30 @@ hr{
 
 
 /*Slight tweaks for mobile*/
-@media (max-width:480px) {
+@media (max-width:500px) {
     .plot{
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
-    
+    .movie-card{
+        height: 270px;
+    }
+    .extra-info{
+        font-size: 0.7rem;
+    }
+    .movie-poster{
+        max-height: 160px;
+    }
+    .header-content{
+        justify-content: space-evenly;
+        margin: 0;
+    }
+    .site-header{
+        font-size: 2rem;
+    }
+    .genre{
+        margin: 0;
+    }
+    .runtime{
+        width: 100%;
+    }
 }
