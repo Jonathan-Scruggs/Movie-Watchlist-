@@ -10,3 +10,5 @@
 ## Things I learnt:
 - Use flex: 1 to cause a element to take up any reamaining space.
 - By default elements have a flex grow property of 0.
+## Interaction Diagram
+![image](https://github.com/Jonathan-Scruggs/Movie-Watchlist-/assets/30415863/9438ef97-fac1-49e2-a74f-3cee10be9853)
