@@ -15,8 +15,13 @@ function handleClicks(event){
     }
     else if (event.target.dataset.id || event.target.parentElement.dataset.id){
         let id = event.target.dataset.id || event.target.parentElement.dataset.id
-        id = Number(id)
-        addMovieToWatchlist(id)
+        if (Number(id)){
+            id = Number(id)
+            addMovieToWatchlist(id)
+        }
+        else {
+            removeFromWatchlist(id)
+        }
     }
     else if (event.target.id === "my-watchlist") {
         renderWatchlist()
@@ -107,6 +112,11 @@ function addMovieToWatchlist(id){
     localStorage.setItem(`${movieToAdd.imdbID}`,JSON.stringify(movieToAdd))
     
 }
+function removeFromWatchlist(id){
+    localStorage.removeItem(id)
+    renderWatchlist()
+}
+
 
 async function renderWatchlist(){
     siteHeader.textContent = "My Watchlist";
