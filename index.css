@@ -164,6 +164,7 @@ main{
     column-gap: 5px;
     padding: 0;
 }
+
 .plot {
     max-width: 342px;
     font-size: 0.875rem;
@@ -172,6 +173,25 @@ main{
     margin: 0;
     margin-top: 0.571em;
     color: #6B7280;
+}
+.empty-watchlist{
+    color: #DFDDDD;
+    font-size:1.125rem;
+    font-weight: 700;
+}
+.empty-watchlist-text{
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.25rem;
+}
+.empty-watchlist-img{
+    height: 18px;
+    width: 18px;
+}
+.empty-watchlist-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 hr{
     display: inline-block;

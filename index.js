@@ -1,18 +1,36 @@
 const siteHeader = document.getElementsByClassName("site-header")[0]
-const myWatchlistSpot = document.getElementById("my-watchlist")
+const myWatchlistSpot = document.getElementsByClassName("my-watchlist")[0]
 const main = document.getElementsByTagName("main")[0]
 const searchbar = document.getElementsByClassName("search-bar")[0]
 let currentResults = [];
-document.getElementById('search-button').addEventListener('click', function() {
-    let movieTitle = document.getElementById('user-search').value;
-    document.getElementById('user-search').value = ""
-    movieTitle = encodeURIComponent(movieTitle);
-    searchMovies(movieTitle);
-});
 
-document.addEventListener("click",addMovieToWatchlist)
-myWatchlistSpot.addEventListener("click",render)
+document.addEventListener("click",handleClicks)
 
+function handleClicks(event){
+    if (event.target.id === "search-button"){
+        let movieTitle = document.getElementById('user-search').value;
+        document.getElementById('user-search').value = ""
+        movieTitle = encodeURIComponent(movieTitle);
+        searchMovies(movieTitle);
+    }
+    else if (event.target.dataset.id || event.target.parentElement.dataset.id){
+        let id = event.target.dataset.id || event.target.parentElement.dataset.id
+        console.log("Adding to watchlist",id)
+        id = Number(id)
+        addMovieToWatchlist(id)
+    }
+    else if (event.target.id === "my-watchlist") {
+        renderWatchlist()
+    }
+    else if (event.target.id === "search-for-movies"){
+        renderSearchMenu()
+    }
+    else if (event.target.id === "empty-watchlist-btn" || event.target.parentElement.id === "empty-watchlist-btn"){
+        renderSearchMenu()
+    }
+
+
+}
 async function searchMovies(query) {
     const response = await fetch(`/api/movies?q=${query}`);
     const data = await response.json();
@@ -31,11 +49,6 @@ async function displayResults(data) {
     main.innerHTML = html.join("")
     
 }
-async function fetchMovieDetails(title) {
-    const response = await fetch(`/api/movie-details?t=${encodeURIComponent(title)}`);
-    return response.json();
-}
-
 async function renderCard(movieObject,id,buttonType){
     const movieDetails = await fetchMovieDetails(movieObject.Title)
     currentResults.push(movieDetails)
@@ -69,30 +82,32 @@ async function renderCard(movieObject,id,buttonType){
     `
     return html
 }
+async function fetchMovieDetails(title) {
+    const response = await fetch(`/api/movie-details?t=${encodeURIComponent(title)}`);
+    return response.json();
+}
 
-// Function for adding to watchlist
-function addMovieToWatchlist(event){
-    if (event.target.dataset.id || event.target.parentElement.dataset.id){
-        let id = event.target.dataset.id || event.target.parentElement.dataset.id
-        id = Number(id)
-        let movieToAdd = currentResults[id]
-        console.log(movieToAdd)
-        localStorage.setItem(`${movieToAdd.imdbID}`,JSON.stringify(movieToAdd))
-    }
+
+// WatchList Stuff
+function addMovieToWatchlist(id){
+    let movieToAdd = currentResults[id]
+    console.log(movieToAdd)
+    localStorage.setItem(`${movieToAdd.imdbID}`,JSON.stringify(movieToAdd))
+    
 }
 
 async function renderWatchlist(){
     siteHeader.textContent = "My Watchlist";
     myWatchlistSpot.textContent = "Search for movies";
+    myWatchlistSpot.id = "search-for-movies"
     searchbar.style.display = "none";
-    console.log(localStorage.length)
     if (localStorage.length === 0){
         main.innerHTML = `
-        <div>
-        <h3>Your watchlist is looking a little empty...</h3>
-        <button id="empty-watchlist"><img src="/images/addToWatchlistIcon.png"><span>Let's add some movies!</span></button>
+        <div class="empty-watchlist-div">
+        <h3 class="empty-watchlist">Your watchlist is looking a little empty...</h3>
+        <button id="empty-watchlist-btn" class="watchlist-btn"><img class="empty-watchlist-img" src="/images/addToWatchlistIcon.png"><span class="empty-watchlist-text">Let's add some movies!</span></button>
         </div>`
-
+        return // To cancel the rest of function execution
     }
     let html = []
     for (let [key,value] of Object.entries(localStorage)){
@@ -106,5 +121,7 @@ async function renderWatchlist(){
 function renderSearchMenu(){
     siteHeader.textContent = "Find your film";
     myWatchlistSpot.textContent = "My Watchlist";
-    searchbar.style.display = "visible";
+    myWatchlistSpot.id = "my-watchlist"
+    searchbar.style.display = "flex";
+    main.innerHTML = ` <img src="images/no-data-initial.png" id="no-data-initial-img">`
 }
