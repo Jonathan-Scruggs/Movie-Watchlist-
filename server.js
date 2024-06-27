@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 // Serve static files from the root directory
 app.use(express.static(__dirname));
 
-// Endpoint to search movies
+// Endpoint to search movies by title
 app.get('/api/movies', async (req, res) => {
     const query = req.query.q;
     const response = await fetch(`http://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`);
@@ -25,10 +25,10 @@ app.get('/api/movies', async (req, res) => {
     res.json(data);
 });
 
-// Endpoint to get movie details
+// Endpoint to get movie details by ID
 app.get('/api/movie-details', async (req, res) => {
-    const title = req.query.t;
-    const response = await fetch(`http://www.omdbapi.com/?t=${title}&apikey=${API_KEY}`);
+    const id = req.query.i; // Changed from 't' to 'i'
+    const response = await fetch(`http://www.omdbapi.com/?i=${id}&apikey=${API_KEY}`); // Changed from 't' to 'i'
     const data = await response.json();
     res.json(data);
 });

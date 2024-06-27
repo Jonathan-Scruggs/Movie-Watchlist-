@@ -50,7 +50,7 @@ async function displayResults(data) {
     
 }
 async function renderCard(movieObject,id,buttonType){
-    const movieDetails = await fetchMovieDetails(movieObject.Title)
+    const movieDetails = await fetchMovieDetails(movieObject.imdbID)
     currentResults.push(movieDetails)
     let posOfSlash = movieDetails.Ratings[0].Value.indexOf("/")
     let movieRating = movieDetails.Ratings[0].Value.slice(0,posOfSlash)
@@ -82,8 +82,8 @@ async function renderCard(movieObject,id,buttonType){
     `
     return html
 }
-async function fetchMovieDetails(title) {
-    const response = await fetch(`/api/movie-details?t=${encodeURIComponent(title)}`);
+async function fetchMovieDetails(id) {
+    const response = await fetch(`/api/movie-details?i=${encodeURIComponent(id)}`);
     return response.json();
 }
 
@@ -91,7 +91,6 @@ async function fetchMovieDetails(title) {
 // WatchList Stuff
 function addMovieToWatchlist(id){
     let movieToAdd = currentResults[id]
-    console.log(movieToAdd)
     localStorage.setItem(`${movieToAdd.imdbID}`,JSON.stringify(movieToAdd))
     
 }
