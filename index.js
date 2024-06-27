@@ -156,14 +156,16 @@ function renderReadMorePlot(id){
     if (Number(id)){
         id = Number(id)
         document.getElementsByClassName("movie-card")[id].classList.remove("default");
-        console.log(currentResults[id])
         const fullPlot = currentResults[id].Plot;
         document.getElementsByClassName("plot")[id].textContent = fullPlot;
     }
     else {
-        console.log(id)
-        const movieObject = localStorage.getItem(id)
-        const fullPlot = movieObject.Plot
-        console.log(fullPlot)
+        let movieObject = localStorage.getItem(id)
+        movieObject = JSON.parse(movieObject) // Convert to JS object
+        const moviePlot = movieObject.Plot
+        const btnEl = document.querySelector(`[data-readmore=${id}]`)
+        const paragraphEl = btnEl.parentElement
+        paragraphEl.textContent = moviePlot
+        paragraphEl.parentElement.parentElement.classList.remove("default")
     }
 }
