@@ -15,7 +15,6 @@ function handleClicks(event){
     }
     else if (event.target.dataset.id || event.target.parentElement.dataset.id){
         let id = event.target.dataset.id || event.target.parentElement.dataset.id
-        console.log("Adding to watchlist",id)
         id = Number(id)
         addMovieToWatchlist(id)
     }
@@ -27,6 +26,10 @@ function handleClicks(event){
     }
     else if (event.target.id === "empty-watchlist-btn" || event.target.parentElement.id === "empty-watchlist-btn"){
         renderSearchMenu()
+    }
+    else if (event.target.dataset.readmore){
+        renderReadMorePlot(event.target.dataset.readmore)
+
     }
 
 
@@ -61,8 +64,18 @@ async function renderCard(movieObject,id,buttonType){
     else{
         buttonString = `<button class="watchlist-btn" data-id="${id}"><img src="/images/removeFromWishlist.png"><span class="extra-info">Remove</span></button>`
     }
+
+    let needsShorten = needsViewMore(movieDetails.Plot)
+    let plotString;
+    if (needsShorten){
+        plotString = addViewMore(movieDetails.Plot,id)
+    }
+    else {
+        plotString = `<p class="plot">${movieDetails.Plot}</p>`
+    } 
+
     let html = `
-    <div class="movie-card">
+    <div class="movie-card default">
         <img class="movie-poster" src=${movieObject.Poster}>
         <div class="movie-details">
             <h3 class="movie-title">${movieDetails.Title}</h3>
@@ -75,7 +88,7 @@ async function renderCard(movieObject,id,buttonType){
                 <span class="extra-info genre">${movieDetails.Genre}</span>
                 ${buttonString}
             </div>
-            <p class="plot">${movieDetails.Plot}</p>
+            ${plotString}
         </div>
     </div>
     <hr />
@@ -123,4 +136,34 @@ function renderSearchMenu(){
     myWatchlistSpot.id = "my-watchlist"
     searchbar.style.display = "flex";
     main.innerHTML = ` <img src="images/no-data-initial.png" id="no-data-initial-img">`
+}
+
+function needsViewMore(text){
+
+    if (text.length > 132){
+        return true
+    }
+    else {
+        return false
+    }
+
+}
+function addViewMore(text,id){
+    let shortenedPlot = text.slice(0,132)
+    return `<p class="plot">${shortenedPlot}...<button data-readmore="${id}" class="read-more-btn">Read more</button></p>`
+}
+function renderReadMorePlot(id){
+    if (Number(id)){
+        id = Number(id)
+        document.getElementsByClassName("movie-card")[id].classList.remove("default");
+        console.log(currentResults[id])
+        const fullPlot = currentResults[id].Plot;
+        document.getElementsByClassName("plot")[id].textContent = fullPlot;
+    }
+    else {
+        console.log(id)
+        const movieObject = localStorage.getItem(id)
+        const fullPlot = movieObject.Plot
+        console.log(fullPlot)
+    }
 }

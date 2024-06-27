@@ -107,12 +107,15 @@ main{
     transform: translateX(-50%);
 }
 /*Stuff for dynamically rendered cards*/
+.default {
+    height: 147.41px;  
+}
 
 .movie-card{
     display: flex;
     color: #000000;
     width: 84%;
-    height: 147.41px;
+
     column-gap: 1.3125em;
 }
 .movie-poster{
@@ -173,6 +176,16 @@ main{
     margin: 0;
     margin-top: 0.571em;
     color: #6B7280;
+}
+.read-more-btn{
+    font-weight: 400;
+    color: #272727;
+    padding: 0;
+    display: inline;
+    border: none;
+    background-color: white;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
 }
 .empty-watchlist{
     color: #DFDDDD;
