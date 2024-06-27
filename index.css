@@ -61,6 +61,7 @@ header{
     display: flex;
     align-items: center;
     padding-left: 0.9375em;
+    z-index: 2;
 }
 .search-bar label{
     height: 16px;
@@ -93,7 +94,7 @@ main{
     flex: 1;
     background-color: #FFFFFF;
     position: relative;
-    z-index: -1;
+    /* z-index: -1; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -179,7 +180,9 @@ hr{
     margin: 1.3125em 0;
 }
 
-
+button:hover,a:hover{
+    cursor: pointer;
+}
 
 /*Slight tweaks for mobile*/
 @media (max-width:500px) {
