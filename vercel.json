@@ -7,29 +7,17 @@
       },
       {
         "src": "index.html",
-        "use": "@vercel/static"
-      },
-      {
-        "src": "index.css",
-        "use": "@vercel/static"
-      },
-      {
-        "src": "index.js",
-        "use": "@vercel/static"
-      },
-      {
-        "src": "images/**/*",
-        "use": "@vercel/static"
+        "use": "@vercel/static-build"
       }
     ],
     "routes": [
       {
-        "src": "/(.*)",
-        "dest": "index.html"
+        "src": "/api/(.*)",
+        "dest": "/server.js"
       },
       {
-        "src": "/api/(.*)",
-        "dest": "server.js"
+        "src": "/(.*)",
+        "dest": "/index.html"
       }
     ]
   }
