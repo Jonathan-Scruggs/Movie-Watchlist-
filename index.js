@@ -15,7 +15,7 @@ function handleClicks(event){
     }
     else if (event.target.dataset.id || event.target.parentElement.dataset.id){
         let id = event.target.dataset.id || event.target.parentElement.dataset.id
-        if (Number(id)){
+        if (!Number.isNaN(Number(id))){
             id = Number(id)
             addMovieToWatchlist(id)
         }
@@ -46,7 +46,9 @@ async function searchMovies(query) {
 }
 
 async function displayResults(data) {
-    let html = []; // Will hold 
+    let html = []; // Will hold
+    // Reset CurrentResults
+    currentResults = [] 
     let count = 0
     for (let movieObject of data){
         html.push(await renderCard(movieObject,count,"Watchlist"))

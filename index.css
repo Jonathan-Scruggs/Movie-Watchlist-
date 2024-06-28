@@ -219,14 +219,22 @@ button:hover,a:hover{
 
 /*Slight tweaks for mobile*/
 @media (max-width:500px) {
+    .centered-align{
+        justify-content: space-between;
+    }
+    .default{
+        height: unset;
+    }
+    .watchlist-btn{
+        width: 100%;
+        display: inline-flexbox;
+    }
     .plot{
         font-size: 0.7rem;
     }
-    .movie-card{
-        height: 270px;
-    }
     .extra-info{
         font-size: 0.7rem;
+        height: unset;
     }
     .movie-poster{
         max-height: 160px;
@@ -239,9 +247,9 @@ button:hover,a:hover{
         font-size: 2rem;
     }
     .genre{
+        display: flex;
+        flex-wrap: wrap ;
         margin: 0;
     }
-    .runtime{
-        width: 100%;
-    }
+   
 }
