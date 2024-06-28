@@ -42,6 +42,11 @@ function handleClicks(event){
 async function searchMovies(query) {
     const response = await fetch(`/api/movies?q=${query}`);
     const data = await response.json();
+   if (data.Response === "False"){
+        // Case where response failed
+        main.innerHTML = `<h3 class="empty-watchlist no-results">Unable to find what you’re looking for. Please try another search.</h3>`
+        return // To cancel rest of code execution
+   }
     displayResults(data.Search);
 }
 
@@ -62,8 +67,11 @@ async function displayResults(data) {
 async function renderCard(movieObject,id,buttonType){
     const movieDetails = await fetchMovieDetails(movieObject.imdbID)
     currentResults.push(movieDetails)
-    let posOfSlash = movieDetails.Ratings[0].Value.indexOf("/")
-    let movieRating = movieDetails.Ratings[0].Value.slice(0,posOfSlash)
+    let movieRating = "N/A";
+    if (movieDetails.Ratings.length > 0){
+        let posOfSlash = movieDetails.Ratings[0].Value.indexOf("/")
+        movieRating = movieDetails.Ratings[0].Value.slice(0,posOfSlash)
+    }
     let buttonString = ``;
     if (buttonType === "Watchlist"){
         buttonString = `<button class="watchlist-btn" data-id="${id}"><img src="/images/addToWatchlistIcon.png"><span class="extra-info">Watchlist</span></button>`

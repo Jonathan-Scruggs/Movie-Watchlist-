@@ -206,6 +206,12 @@ main{
     flex-direction: column;
     align-items: center;
 }
+#empty-watchlist-btn{
+    width: unset;
+    color: #363636;
+
+}
+
 hr{
     display: inline-block;
     width: 84%;
@@ -215,6 +221,12 @@ hr{
 
 button:hover,a:hover{
     cursor: pointer;
+}
+.no-results{
+    position: absolute;
+    top: 50%;
+    margin: 0 auto;
+    width: 60%;
 }
 
 /*Slight tweaks for mobile*/
@@ -250,6 +262,12 @@ button:hover,a:hover{
         display: flex;
         flex-wrap: wrap ;
         margin: 0;
+    }
+    .no-results{
+        top: unset;
+    }
+    #no-data-initial-img{
+        top: unset;
     }
    
 }
